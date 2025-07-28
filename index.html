@@ -1,1 +1,318 @@
-ss
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mozilla - Building the Internet for People, Not Profit</title>
+  <style>
+    /* (Same CSS as before – unchanged) */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      color: #333;
+      overflow-x: hidden;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      padding: 60px 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .logo {
+      width: 200px;
+      height: auto;
+      margin-bottom: 30px;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+      transition: transform 0.3s ease;
+    }
+    .logo:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+    h1 {
+      font-size: 3.5rem;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      animation: textPulse 3s ease-in-out infinite;
+    }
+    @keyframes textPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .tagline {
+      font-size: 1.4rem;
+      color: #2c3e50;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .card:hover::before {
+      opacity: 1;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    .card h2 {
+      font-size: 2rem;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .card p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #34495e;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .firefox-image {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      margin: 20px 0;
+    }
+    .firefox-image:hover {
+      transform: scale(1.05) rotate(2deg);
+    }
+    .video-container {
+      position: relative;
+      margin: 30px 0;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+    .feature-item {
+      text-align: center;
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    .feature-item:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+    .cta-section {
+      text-align: center;
+      padding: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      margin-top: 40px;
+      backdrop-filter: blur(15px);
+    }
+    .cta-button {
+      display: inline-block;
+      padding: 15px 40px;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(45deg, #4ecdc4, #ff6b6b);
+    }
+    .footer {
+      text-align: center;
+      padding: 30px;
+      margin-top: 40px;
+      color: #2c3e50;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      .tagline {
+        font-size: 1.1rem;
+      }
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+      .card {
+        padding: 20px;
+      }
+    }
+    .floating-shapes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .shape {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+    }
+    .shape:nth-child(1) { width: 80px; height: 80px; top: 20%; left: 10%; animation-delay: 0s; }
+    .shape:nth-child(2) { width: 120px; height: 120px; top: 60%; right: 10%; animation-delay: -5s; }
+    .shape:nth-child(3) { width: 60px; height: 60px; top: 80%; left: 20%; animation-delay: -10s; }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10%, 90% { opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+
+  <div class="container">
+    <header class="header">
+      <img src="assets/firefox-logo.png" alt="Firefox Logo" class="logo">
+      <h1>Mozilla</h1>
+      <p class="tagline">Building the internet for people, not profit</p>
+    </header>
+
+    <div class="content-grid">
+      <div class="card">
+        <h2>🔥 Firefox Browser</h2>
+        <p>Experience the web with a browser that puts your privacy first.</p>
+        <img src="https://www.mozilla.org/media/img/firefox/new/desktop/screen.png" alt="Firefox Screenshot" class="firefox-image">
+        <p>Join millions who made the switch.</p>
+      </div>
+
+      <div class="card">
+        <h2>🛡️ Privacy Protection</h2>
+        <p>Mozilla champions your right to privacy online.</p>
+        <div class="video-container">
+          <video controls poster="https://www.mozilla.org/media/img/home/2018/mozilla-video-poster.jpg">
+            <source src="https://assets.mozilla.net/video/mozilla-mission.mp4" type="video/mp4">
+            <source src="https://assets.mozilla.net/video/mozilla-mission.webm" type="video/webm">
+            Your browser doesn't support HTML5 video.
+          </video>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>🌍 Global Impact</h2>
+        <p>Mozilla is a global community working to keep the internet healthy.</p>
+        <img src="https://www.mozilla.org/media/img/home/2018/fundraising-eoy.png" alt="Mozilla Community" class="firefox-image">
+      </div>
+
+      <div class="card">
+        <h2>⚡ Innovation Hub</h2>
+        <p>Discover cutting-edge web technologies and open-source tools.</p>
+        <div class="features-grid">
+          <div class="feature-item"><span class="feature-icon">🚀</span><h3>WebAssembly</h3><p>Next-gen web performance</p></div>
+          <div class="feature-item"><span class="feature-icon">🔧</span><h3>Dev Tools</h3><p>Built for creators</p></div>
+          <div class="feature-item"><span class="feature-icon">🌐</span><h3>Web Standards</h3><p>Shaping the future</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Join the Movement</h2>
+      <p>Be part of the community that's building a better internet.</p>
+      <a href="https://www.mozilla.org/firefox/download/" class="cta-button">Download Firefox</a>
+      <a href="https://www.mozilla.org/contribute/" class="cta-button">Get Involved</a>
+      <a href="https://foundation.mozilla.org/donate/" class="cta-button">Support Mozilla</a>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2024 Mozilla Foundation. Building the internet for people, not profit.</p>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const shapes = document.querySelectorAll('.shape');
+      document.addEventListener('mousemove', function(e) {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        shapes.forEach((shape, i) => {
+          const speed = (i + 1) * 0.5;
+          const xPos = (x * speed * 10) - 5;
+          const yPos = (y * speed * 10) - 5;
+          shape.style.transform = `translate(${xPos}px, ${yPos}px)`;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
